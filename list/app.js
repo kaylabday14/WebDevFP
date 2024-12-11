@@ -10,7 +10,10 @@ var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/mydb_test");
 
 var listSchema = mongoose.Schema({
-  text : String     // text associated with the list item
+  text : String,     // text associated with the list item
+  task : String, 
+  dateA : String,
+  completed : { type: Boolean, default: false }
 });
 // association of the List model with the elements collection
 var List = mongoose.model("elements", listSchema);
@@ -25,14 +28,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 // creating a new element in the list
 app.post("/list", function(req, res) {
   var text = req.body.text;
+  var task = req.body.task;
+  var dateA = req.body.dateA;
+  console.log(text);
+  console.log(task);
+  console.log(dateA);
 
-  List.create({text:text})
+  List.create({text: text, task: task, dateA: dateA})
     .then( doc => {
       res.json({id:doc._id});
 })
@@ -51,8 +59,10 @@ app.get("/list", function(req, res) {
 // modifying an element in the list
 app.put("/list", function(req, res) {
   var id = req.body.id;
+  var task = req.body.task;
   var text = req.body.text;
-  List.updateOne({_id:id}, {text:text}).exec();
+  var dateA = req.body.dateA;
+  List.updateOne({_id:id}, {text: text, task: task, dateA: dateA}).exec();
   // don't forget exec()!
   res.send();  // close the connection to the browser
 });

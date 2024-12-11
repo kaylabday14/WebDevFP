@@ -3,6 +3,26 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+li {
+    margin-top:10px;
+  }
+
+ul button {
+    margin-left:10px;
+  }
+
+.incompletelist li {
+    border-width: 2px;
+    border-style: dotted;
+    width:auto;
+    margin:10px, 10px, 10px, 10px; 
+    padding: 5px, 5px, 5px, 5px;
+}
+
 a {
   color: #00B7FF;
+}
+.completed{
+  text-decoration: line-through;
+  background-color: #f0f0f0;
 }
